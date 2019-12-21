@@ -11,14 +11,14 @@ using System.Windows.Forms;
 
 namespace MySnake
 {
-    public partial class Form1 : Form
+    public partial class MainWindow : Form
     {
         //Snake is object creted from circles
         private List<Circle> Snake = new List<Circle>();
         //also food is created from circles
         private Circle food = new Circle();
 
-        public Form1()
+        public MainWindow()
         {
             InitializeComponent();
 
@@ -149,7 +149,7 @@ namespace MySnake
                     }
                     else
                     {
-                        snakeColour = Brushes.Green;
+                        snakeColour = Brushes.Lime;
                     }
 
                     //draw snake
@@ -162,7 +162,7 @@ namespace MySnake
             }
             else
             {
-                string gameOver = "Game Over \nYour final score is: " + Settings.Score + "\nPress Enter t try again";
+                string gameOver = "Game Over \nYour final score is: " + Settings.Score + "\nPress Enter to try again";
                 GAmeOverLabel.Text = gameOver;
                 GAmeOverLabel.Visible = true;
             }

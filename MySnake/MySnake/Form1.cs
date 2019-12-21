@@ -163,6 +163,30 @@ namespace MySnake
                             Snake[i].Y++;
                             break;
                     }
+
+                    //get max X and Y position
+                    int maxXposition = SnakeBackgroundPictureBox.Size.Width / Settings.Width;
+                    int maxYposition = SnakeBackgroundPictureBox.Size.Height / Settings.Height;
+
+                    //detect collision with borders
+                    if( Snake[i].X < 0 || Snake[i].Y < 0 || Snake[i].X > maxXposition || Snake[i].Y > maxYposition)
+                    {
+                        Die();
+                    }
+
+                    //detect body snake collision
+                    for(int j= 1; j< Snake.Count; j++)
+                    {
+                        if(Snake[i].X == Snake[j].X && Snake[i].Y == Snake[j].Y)
+                        {
+                            Die();
+                        }
+                    }
+
+                    if(Snake[0].X == food.X && Snake[0].Y == food.Y)
+                    {
+                        Eat();
+                    }
                 }
                 else
                 {
@@ -172,6 +196,27 @@ namespace MySnake
                 }
 
             }
+        }
+
+        private void Die()
+        {
+            Settings.GameOver = true;
+        }
+
+        private void Eat()
+        {
+            Circle food = new Circle();
+            food.X = Snake[Snake.Count - 1].X;
+            food.Y = Snake[Snake.Count - 1].Y;
+
+            Snake.Add(food);
+
+            //add score
+            //refresh labelscore
+            Settings.Score += Settings.Points;
+            ActualScoreLabel.Text = Settings.Score.ToString();
+
+            GenerateFood();
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)

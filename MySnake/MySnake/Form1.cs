@@ -58,12 +58,39 @@ namespace MySnake
         {
             int maxXposition = SnakeBackgroundPictureBox.Size.Width/Settings.Width;
             int maxYposition = SnakeBackgroundPictureBox.Size.Height/Settings.Height;
+            
+            //bool flag to check if food won't generate on snake
+            bool freeSpaceFlag = false;
 
-            Random random = new Random();
-            food = new Circle();
-            food.X = random.Next(0, maxXposition);
-            food.Y = random.Next(0, maxYposition);
-                
+            //while loop to prevent loading food on snake
+            while (freeSpaceFlag != true)
+            {
+
+                Random random = new Random();
+
+                int Xrandom = random.Next(0, maxXposition);
+                int Yrandom = random.Next(0, maxYposition);
+
+                for (int i = 0; i <= Snake.Count - 1; i++)
+                {
+                    if (Xrandom == Snake[i].X && Yrandom == Snake[i].Y)
+                    {
+                        break;
+                    }
+                    else
+                    {
+
+                        food = new Circle();
+                        food.X = Xrandom;
+                        food.Y = Yrandom;
+                        freeSpaceFlag = true;
+                    }
+
+
+                }
+            }
+
+            freeSpaceFlag = false;
         }
 
         private void UpdateScreen(object sender, EventArgs e)
